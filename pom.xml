@@ -10,9 +10,11 @@
 		<version>2.3.8.RELEASE</version>
 	</parent>
 	<properties>
-  <sonar.projectKey>Divyabd_TeamManagementSpring</sonar.projectKey>
+  <properties>
+  <sonar.projectKey>Divyabd_Pipeline-sample-springboot-application-practice</sonar.projectKey>
   <sonar.organization>divyabd</sonar.organization>
   <sonar.host.url>https://sonarcloud.io</sonar.host.url>
+</properties>
 </properties>
 	<dependencies>
 
