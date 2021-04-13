@@ -19,6 +19,11 @@ pipeline{
          sh 'mvn package'
 
      }
+     post{
+         always{
+             mail bcc: '', body: 'divya b d', cc: '', from: '', replyTo: '', subject: 'hello', to: 'divyagowdadivya238@gmail.com'
+         }
+     }
      }
 //      stage('connection with sonarcloud'){
 //      steps{
