@@ -23,7 +23,7 @@ pipeline{
      stage('connection with sonarcloud'){
      steps{
           withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {
-     sh 'mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+  
        }  
       
 
