@@ -20,5 +20,22 @@ pipeline{
 
      }
      }
+     stage('connection with sonarcloud'){
+     steps{
+         withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {
+    // some block
+}  
+
+     }
+     }
+     stage("Quality Gate") {
+  steps {
+    timeout(time: 1, unit: 'MINUTES') {
+        waitForQualityGate abortPipeline: true
+    }
+  }
+}
+
  }
+
 }
