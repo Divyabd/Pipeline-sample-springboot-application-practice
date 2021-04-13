@@ -22,10 +22,10 @@ pipeline{
     //  }
      stage('connection with sonarcloud'){
      steps{
-    //      withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {
-    // // some block
-    //     }  
-       sh 'mvn verify sonar:sonar'
+          withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {
+     sh 'mvn verify sonar:sonar'
+       }  
+      
 
      }
      }
