@@ -6,11 +6,16 @@ pipeline{
     }
   }
  stages{
-     stage('maven clean'){
+     stage('maven clean and package'){
      steps{
          echo "maven clean"
          sh 'mvn clean'
      }
+      steps{
+         echo "maven package"
+         sh 'mvn package'
      }
+     }
+
  }
     }
