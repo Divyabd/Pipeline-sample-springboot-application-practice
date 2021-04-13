@@ -25,7 +25,7 @@ pipeline{
          withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {
     // some block
         }  
-        sh 'mvn verify sonar:sonar'
+      //  sh 'mvn verify sonar:sonar'
 
      }
      }
