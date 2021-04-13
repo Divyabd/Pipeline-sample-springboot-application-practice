@@ -45,16 +45,19 @@
 
 	<build>
 		<plugins>
-		<plugin>
+		
       
+  <plugin>
     <groupId>org.apache.maven.plugins</groupId>
     <artifactId>maven-compiler-plugin</artifactId>
     <version>3.8.0</version>
     <configuration>
-        <release>11</release>
+        <source>11</source>   <!-- maven.compiler.source  -->
+        <target>11</target> <!-- maven.compiler.target -->
     </configuration>
+</plugin>
 
-      </plugin>
+      
 	  
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
