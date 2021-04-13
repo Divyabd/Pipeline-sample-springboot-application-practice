@@ -6,9 +6,11 @@ pipeline{
     }
   }
  stages{
+     stage('maven clean'){
      step{
          echo "maven clean"
          sh 'mvn clean'
+     }
      }
  }
     }
