@@ -80,7 +80,7 @@ pipeline{
                      spec: '''{
                              "files": [
                                       {
-                                      "pattern": "repo-loca-dev/my-app-1.0-SNAPSHOT.jar",
+                                      "pattern": "repo-loca-dev/CodingChallenge2-0.0.1-SNAPSHOT.jar",
                                       "target": "bazinga/"
                                     }
                                 ]
