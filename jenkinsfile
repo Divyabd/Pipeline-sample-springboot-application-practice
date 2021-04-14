@@ -53,40 +53,64 @@ pipeline{
 //      }
 //   }
 // }
- stage('deploy to artifactory')
-     {
-     steps{
+//  stage('deploy to artifactory')
+//      {
+//      steps{
      
-     rtUpload (
-    serverId: 'ARTIFACTORY_SERVER',
-    spec: '''{
-          "files": [
-            {
-              "pattern": "target/*.jar",
-              "target": "repo-loca-dev"
-            }
-         ]
-    }''',
+//      rtUpload (
+//     serverId: 'ARTIFACTORY_SERVER',
+//     spec: '''{
+//           "files": [
+//             {
+//               "pattern": "target/*.jar",
+//               "target": "repo-loca-dev"
+//             }
+//          ]
+//     }''',
  
   
    
-)
-     }}
-     stage('download to artifactory')
-   {
-     steps {
-       rtDownload (
-                         serverId: 'ARTIFACTORY_SERVER',
-                     spec: '''{
-                             "files": [
-                                      {
-                                      "pattern": "repo-loca-dev/*.jar",
-                                      "target": "bazinga/"
-                                    }
-                                ]
-                            }'''
-                        )
-                        }}
+// )
+//      }}
+//      stage('download to artifactory')
+//    {
+//      steps {
+//        rtDownload (
+//                          serverId: 'ARTIFACTORY_SERVER',
+//                      spec: '''{
+//                              "files": [
+//                                       {
+//                                       "pattern": "repo-loca-dev/*.jar",
+//                                       "target": "bazinga/"
+//                                     }
+//                                 ]
+//                             }'''
+//                         )
+//                         }}
+  stage('Docker build'){
+            steps{
+               
+                    sh 'docker image prune -a --force'
+                    sh 'docker-compose build'
+                
+                
+            }
+        }
+        stage('Pushing images to docker hub'){
+            steps{
+                
+
+                withCredentials([string(credentialsId: 'docker-hub', variable: 'dockerpass')]) {
+                            // some block
+                   sh "docker login -u divyadockerhub1998 -p ${dockerpass}"
+                   echo "login successfull"
+
+                }
+                sh "docker tag ci-cd_app divyadockerhub1998/mysql:8.0:v${env.BUILD_ID}"
+                sh "docker push divyadockerhub1998/mysql:8.0:v${env.BUILD_ID}"
+
+            }
+        }
  }
 
 }
