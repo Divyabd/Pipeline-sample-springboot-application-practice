@@ -53,25 +53,25 @@ pipeline{
 //      }
 //   }
 // }
-//  stage('deploy to artifactory')
-//      {
-//      steps{
+ stage('deploy to artifactory')
+     {
+     steps{
      
-//      rtUpload (
-//     serverId: 'ARTIFACTORY_SERVER',
-//     spec: '''{
-//           "files": [
-//             {
-//               "pattern": "target/*.jar",
-//               "target": "repo-loca-dev"
-//             }
-//          ]
-//     }''',
+     rtUpload (
+    serverId: 'ARTIFACTORY_SERVER',
+    spec: '''{
+          "files": [
+            {
+              "pattern": "target/*.jar",
+              "target": "repo-loca-dev"
+            }
+         ]
+    }''',
  
   
    
-// )
-//      }}
+)
+     }}
      stage('download to artifactory')
    {
      steps {
