@@ -24,26 +24,26 @@ pipeline{
      stage('connection with sonarcloud'){
      steps{
           withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {
-              sh ' mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
+           //   sh ' mvn verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar'
        }  
       
 
      }
      }
-     stage('SonarQube Quality Gate') { 
-            steps{
-                timeout(time: 1, unit: 'HOURS') { 
-                    script{
-                        def qg = waitForQualityGate() 
-                        if (qg.status != 'OK') {
-                            error "Pipeline aborted due to quality gate failure: ${qg.status}"
-                         }
-                    }
+    //  stage('SonarQube Quality Gate') { 
+    //         steps{
+    //             timeout(time: 1, unit: 'HOURS') { 
+    //                 script{
+    //                     def qg = waitForQualityGate() 
+    //                     if (qg.status != 'OK') {
+    //                         error "Pipeline aborted due to quality gate failure: ${qg.status}"
+    //                      }
+    //                 }
                     
-                }
-            }
+    //             }
+    //         }
          
-        }
+    //     }
 //      stage("Quality Gate") {
 //   steps {
 //       withSonarQubeEnv(credentialsId: 'sonarcloud-connection-with-practice', installationName: 'sonarcloud') {   
@@ -53,7 +53,40 @@ pipeline{
 //      }
 //   }
 // }
-
+ stage('deploy to artifactory')
+     {
+     steps{
+     
+     rtUpload (
+    serverId: 'ARTIFACTORY_SERVER',
+    spec: '''{
+          "files": [
+            {
+              "pattern": "target/*.jar",
+              "target": "repo-loca-dev"
+            }
+         ]
+    }''',
+ 
+  
+   
+)
+     }}
+     stage('download to artifactory')
+   {
+     steps {
+       rtDownload (
+                         serverId: 'ARTIFACTORY_SERVER',
+                     spec: '''{
+                             "files": [
+                                      {
+                                      "pattern": "repo-loca-dev/my-app-1.0-SNAPSHOT.jar",
+                                      "target": "bazinga/"
+                                    }
+                                ]
+                            }'''
+                        )
+                        }}
  }
 
 }
